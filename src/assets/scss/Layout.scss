@@ -1,0 +1,33 @@
+//img
+$building: '~assets/image/building.svg';
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  .topbar {
+    padding: .75rem 1rem;
+    background-color: purple;
+    color: white;
+  }
+  
+  .content {
+    padding: .85rem;
+    background-color: lightblue;
+  }
+  
+  .footer {
+    margin-top: auto;
+    padding: .5rem .75rem;
+    background-color: lightgray;
+  }
+
+  .building {
+    width: 200px;
+    height: 200px;
+    background-image: url($building);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }

@@ -1,0 +1,35 @@
+.text-center {
+    text-align: center;
+}
+
+.text-danger {
+    color: lighten($color: red, $amount: 10);
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.link {
+    color: lavender;
+    font-size: 1.2rem;
+    margin: 0 .25rem;
+    &.active {
+        color: lightpink;
+    }
+    // for lobo
+    &.woof {
+        color: lightgreen;
+    }
+    &:hover {
+        color: yellow;
+    }
+}
+
+.mx-2 {
+    margin: 0 .5rem;
+}

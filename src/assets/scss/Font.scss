@@ -1,0 +1,16 @@
+$FontURL: "~assets/font/century-gothic/";
+
+@font-face {
+    font-family: Century-Gothic;
+    src: url( $FontURL + "CenturyGothic.ttf" );
+}
+
+@font-face {
+    font-family: GOTHIC;
+    src: url( $FontURL + "GOTHIC.TTF" );
+}
+
+@font-face {
+    font-family: GOTHICB;
+    src: url( $FontURL + "GOTHICB.TTF" );
+}
