@@ -5,6 +5,7 @@ import {
   Route,
   Link,
   NavLink,
+  Redirect,
   useRouteMatch,
   useParams
 } from "react-router-dom";
@@ -21,6 +22,8 @@ function App() {
               <Link className="link" to="/">Home</Link>
               <NavLink className="link" activeClassName="woof" to="/Lobo">Lobo</NavLink>
               <NavLink className="link" to="/Topics">Topics</NavLink>
+              <NavLink className="link" to="/About" >About</NavLink>
+              <NavLink className="link" to="/Story" >Story</NavLink>
             </div>
           )
         }
@@ -33,15 +36,62 @@ function App() {
               <Route path="/Topics">
                 <Topics />
               </Route>
-              <Route path="/Lobo">
-                <Lobo />
-              </Route>
+              <Route path="/Lobo" children={ props => (<div>children Lobo</div>)} />
+              <Route path="/About" component={About} />
+              <Redirect from={"/About"} to={{
+                pathname: '/Lobo', 
+                search: "?Bark=false",
+                state: { name: 'Lobo'}
+              }} />
+              <Route component={NoPages} ></Route> 
             </Switch>
           )
         }
-        
       />
     </Router>
+  )
+}
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    exact: true,
+    main: () => <div className="">home</div>
+  },
+  {
+    path: '/About',
+    name: 'About',
+    component: About,
+  },
+  {
+    path: '/Lobo',
+    name: 'Lobo',
+    component: Lobo,
+  },
+  {
+    path: '/Topics',
+    component: Topics,
+    children: [
+      {
+        path: ":topicID",
+        component: Topic,
+      }
+    ]
+  }
+]
+
+
+function CustomLink({ label, to, activeOnlyWhenExact}) {
+  let match = useRouteMatch({
+    path: to,
+    exact: activeOnlyWhenExact
+  })
+  return (
+    <div className={match ? 'active' : ''}>
+      { match && "> "}
+      <Link to={to}>{label}</Link>
+    </div>
   )
 }
 
@@ -53,15 +103,19 @@ function Home() {
   return ( <p>Home</p> )
 }
 
+function About() {
+  return <p>About</p>
+}
+
 function Topics() {
   let match = useRouteMatch()
   return ( 
     <div className="">
       <p>Topic Page</p>
-
       <ul>
         <li>
-          <Link to={`${match.url}/Hello`}>Hello</Link>
+          <CustomLink to={`${match.url}/Hello`} label="Hello" />
+          <CustomLink to={`${match.url}/World`} label="World" />
         </li>
       </ul>
       <Switch>
@@ -78,7 +132,12 @@ function Topics() {
 
 function Topic() {
   let { topicID } = useParams()
-  return ( <h3>Current TopicID is : {topicID}</h3>)
+
+  return ( <h3>Current TopicID is : {topicID}</h3> )
+}
+
+function NoPages() {
+  return ( <div>頁面維修中...</div> )
 }
 
 export default App;
